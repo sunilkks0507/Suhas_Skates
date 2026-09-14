@@ -1,0 +1,17 @@
+{
+  "name": "skate-catalogue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "images": "bash scripts/optimize-images.sh",
+    "group": "node scripts/group-by-exif.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.6.1",
+    "zod": "^3.24.2"
+  }
+}

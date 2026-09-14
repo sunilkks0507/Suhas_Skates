@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+
+# Raw camera originals stay out of git — they are ~450 MB.
+# Run `npm run images` to generate public/photos/ from them.
+raw/
