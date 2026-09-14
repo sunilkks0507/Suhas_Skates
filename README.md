@@ -96,8 +96,15 @@ Deployed to **GitHub Pages** at https://sunilkks0507.github.io/Suhas_Skates/
 by `.github/workflows/deploy.yml` on every push to `main`.
 
 One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
-GitHub Pages is free on public repositories; a private repository needs a
-paid plan.
+
+GitHub Pages is free on **public** repositories. On a private repository it
+requires a paid plan — until then every deploy fails at `configure-pages`
+with `Resource not accessible by integration`, even though the build itself
+succeeds.
+
+Free-tier limits are 1 GB published site, 100 GB bandwidth per month and 10
+builds per hour. This catalogue is roughly 10 MB with all photos processed,
+so the free tier is not a constraint.
 
 ### Internal links and the base path
 

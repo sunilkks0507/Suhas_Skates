@@ -31,8 +31,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      # enablement lets the workflow turn Pages on by itself, so there is no
-      # manual Settings step. Needs the repo to be public, or a paid plan.
+      # Pages must be available for the repository first: public repo, or a
+      # private one on a paid plan. Otherwise this step fails with
+      # "Resource not accessible by integration".
+      # One-time: Settings -> Pages -> Source: GitHub Actions.
       - uses: actions/configure-pages@v5
         with:
           enablement: true
