@@ -38,11 +38,12 @@ until you run the image pipeline.
 1. Download the Drive folder into `raw/` at the project root.
 2. `npm run images`
 
-That reads every `raw/*.jpg`, corrects orientation, strips EXIF and writes three
-WebP widths per photo into `public/photos/`. Roughly 450 MB of camera originals
-becomes about 10 MB of web assets. Re-runs skip files already converted.
+That reads every `raw/*.jpg`, corrects orientation from EXIF, strips metadata
+and writes three WebP widths per photo into `public/photos/`. Roughly 450 MB of
+camera originals becomes about 10 MB of web assets. Re-runs skip files already
+converted, so it is safe to stop and restart.
 
-Requires ImageMagick 7 (`brew install imagemagick`, or `apt install imagemagick`).
+No system packages needed — `npm install` brings its own image binaries.
 
 Raw originals stay out of git deliberately — keep them in Drive. Only the
 optimised `public/photos/` files are committed.

@@ -1,5 +1,5 @@
 id,name,brand,category,diameter_mm,durometer,qty,condition,photos,notes
-matter-f1-110,F1 Track-Road-Marathon,MATTER,wheels,110,86A,1,unknown,IMG_20250914_063630.jpg|IMG_20260610_172712.jpg,Quantity and condition to confirm
+matter-g13-110,G13 Track-Road-Marathon,MATTER,wheels,110,86A,1,unknown,IMG_20250914_063630.jpg|IMG_20260610_172712.jpg,Quantity and condition to confirm
 matter-f1-100,F1 Track-Road-Marathon,MATTER,wheels,100,86A,1,unknown,IMG_20260609_052148.jpg,Quantity and condition to confirm
 matter-f1-90,F1 Track-Road-Marathon,MATTER,wheels,90,86A,1,unknown,IMG_20260609_062718.jpg,Quantity and condition to confirm
 matter-cityrun-125,CityRun,MATTER,wheels,125,,1,unknown,IMG_20260702_194817.jpg,185 g per wheel. Durometer not visible in the photo
@@ -13,3 +13,5 @@ titan-t,Titan T,Titan,frames,110,,1,unknown,IMG_20260608_200716.jpg,4x110 or 3x1
 titan-ms,Titan MS,Titan,frames,125,,1,unknown,IMG_20260608_200716.jpg,4x110 or 3x125. 165-195 mm mount
 cougar-mzs7003,Roller Magic MZS7003,Cougar,skates,,,1,new,IMG_20260626_155534.jpg|IMG_20260626_155540.jpg|IMG_20260626_155547.jpg|IMG_20260626_155557.jpg|IMG_20260626_160259.jpg,Boxed complete skate. Black/white colourway
 shore-a-durometer,Shore A durometer gauge,Unbranded,accessories,,,1,unknown,IMG_20260609_061605.jpg,0-100 HA measuring tool. Included for completeness - may not be part of the collection
+warrun-frame-316,Warrun 316 mm frame,Warrun,frames,80,,1,new,,"Marked 80*72*80*80*80-316MM-150/195. Boxed. Photo filename still to be matched"
+wheel-80-88a,80 mm 88A wheel,Unknown,wheels,80,88A,1,worn,,"Brand not legible. Measured 88.5 HA on the Shore A gauge. Photo filename still to be matched"
