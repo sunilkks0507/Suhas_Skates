@@ -1,12 +1,15 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+// Deployed to GitHub Pages as a project site, so the whole catalogue lives
+// under /Suhas_Skates/. Internal links go through src/lib/url.ts, which reads
+// `base` — do not hardcode absolute paths in templates.
+//
+// Moving to a custom domain or Cloudflare Pages later? Set `site` to that
+// origin and delete `base` — nothing else changes.
 export default defineConfig({
-  // Set this to your final URL before deploying, e.g.
-  //   'https://sunilkks0507.github.io'  + base: '/Suhas_Skates'
-  //   or your own domain with no base.
-  site: 'https://example.com',
+  site: 'https://sunilkks0507.github.io',
+  base: '/Suhas_Skates',
+  trailingSlash: 'always',
   build: { format: 'directory' },
-  // The catalogue ships zero client-side framework code. The only JS is the
-  // ~80 line filter/sort script inlined on the index page.
 });

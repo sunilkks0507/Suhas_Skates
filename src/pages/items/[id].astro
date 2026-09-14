@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Wheel from '../../components/Wheel.astro';
 import { items, srcset, type Item } from '../../lib/items';
+import { url } from '../../lib/url';
 
 export function getStaticPaths() {
   return items.map((item) => ({ params: { id: item.id }, props: { item } }));
@@ -56,7 +57,7 @@ const props: Array<[string, string]> = [
 
       {item.notes && <p style="color:var(--ink-2);margin-top:18px;max-width:52ch">{item.notes}</p>}
 
-      <a class="backlink" href="/">← All items</a>
+      <a class="backlink" href={url('/')}>← All items</a>
     </div>
   </div>
 </Base>

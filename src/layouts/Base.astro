@@ -1,9 +1,12 @@
 ---
 import '../styles/global.css';
+import { url } from '../lib/url';
 
 interface Props { title: string; description?: string; }
 const { title, description = 'Inline speed skating gear — wheels, frames and complete skates.' } = Astro.props;
-const path = Astro.url.pathname;
+const home = url('/');
+// Trailing slash varies between dev and the built site; compare both forms.
+const isHome = Astro.url.pathname.replace(/\/$/, '') === home.replace(/\/$/, '');
 ---
 <!doctype html>
 <html lang="en">
@@ -22,9 +25,9 @@ const path = Astro.url.pathname;
   <body>
     <div class="wrap">
       <header class="masthead">
-        <a class="wordmark" href="/">Suhas Skates</a>
+        <a class="wordmark" href={home}>Suhas Skates</a>
         <nav>
-          <a href="/" aria-current={path === '/' ? 'page' : undefined}>Catalogue</a>
+          <a href={home} aria-current={isHome ? 'page' : undefined}>Catalogue</a>
         </nav>
       </header>
 

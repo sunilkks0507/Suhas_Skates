@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Wheel from '../components/Wheel.astro';
 import { items, facets, totals, firstPhoto } from '../lib/items';
+import { url } from '../lib/url';
 
 // Durometer is colour-coded on the wheel itself, so mirror that in the table.
 const durColor: Record<string, string> = {
@@ -98,7 +99,7 @@ const rows = [...items].sort(
                     <Wheel color={colorFor(item.durometer)} size={36} />
                   )}
                   <span>
-                    <a href={`/items/${item.id}/`}>{item.name}</a>
+                    <a href={url(`/items/${item.id}/`)}>{item.name}</a>
                     <span class="brand">{item.brand} · {item.category}</span>
                   </span>
                 </div>

@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { z } from 'zod';
+import { url } from './url';
 
 /** Minimal RFC-4180 parser: handles quoted fields and escaped "" quotes. */
 function parseCsv(text: string): string[][] {
@@ -101,8 +102,8 @@ export function srcset(photo: string) {
   const stem = photo.replace(/\.[^.]+$/, '');
   if (!existsSync(`public/photos/${stem}-800.webp`)) return null;
   return {
-    src: `/photos/${stem}-800.webp`,
-    srcset: WIDTHS.map((w) => `/photos/${stem}-${w}.webp ${w}w`).join(', '),
+    src: url(`/photos/${stem}-800.webp`),
+    srcset: WIDTHS.map((w) => `${url(`/photos/${stem}-${w}.webp`)} ${w}w`).join(', '),
   };
 }
 

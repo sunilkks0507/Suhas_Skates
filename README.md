@@ -92,14 +92,34 @@ the fifty-seven still need identifying.
 
 ## Deploying
 
-Any static host works. The build output is `dist/`.
+Deployed to **GitHub Pages** at https://sunilkks0507.github.io/Suhas_Skates/
+by `.github/workflows/deploy.yml` on every push to `main`.
 
-- **Cloudflare Pages** — build `npm run build`, output `dist`
-- **Netlify** — same
-- **GitHub Pages** — set `site: 'https://sunilkks0507.github.io'` and
-  `base: '/Suhas_Skates'` in `astro.config.mjs`
+One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
+GitHub Pages is free on public repositories; a private repository needs a
+paid plan.
 
-Set `site` in `astro.config.mjs` to the final URL before deploying.
+### Internal links and the base path
+
+The site is served from a subdirectory, so `base: '/Suhas_Skates'` is set in
+`astro.config.mjs`. **Astro does not rewrite hardcoded paths.** Every internal
+link and asset URL must go through the helper in `src/lib/url.ts`:
+
+```astro
+---
+import { url } from '../lib/url';
+---
+<a href={url(`/items/${item.id}/`)}>…</a>
+```
+
+A bare `href="/items/x/"` works in `npm run dev` and 404s in production.
+
+### Moving somewhere else
+
+For Cloudflare Pages, Netlify, or a custom domain: set `site` to the new
+origin and delete `base` from `astro.config.mjs`. The `url()` helper collapses
+to a no-op and nothing else needs touching. Build command `npm run build`,
+output directory `dist`.
 
 ## Project layout
 
