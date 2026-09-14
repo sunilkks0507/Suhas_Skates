@@ -36,7 +36,9 @@ function parseCsv(text: string): string[][] {
 }
 
 export const CATEGORIES = ['wheels', 'frames', 'skates', 'bearings', 'accessories'] as const;
-export const CONDITIONS = ['new', 'like-new', 'good', 'worn'] as const;
+// 'unknown' is a real state here: most items were catalogued from photographs,
+// which show the model and size but rarely the wear.
+export const CONDITIONS = ['new', 'like-new', 'good', 'worn', 'unknown'] as const;
 
 const optionalNumber = z
   .string()

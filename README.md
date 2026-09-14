@@ -57,10 +57,10 @@ Edit `data/items.csv`. One row per **item**, not per photo:
 | `name` | model name, without the brand |
 | `brand` | MATTER, MPC, Titan, Cougar … |
 | `category` | `wheels`, `frames`, `skates`, `bearings`, `accessories` |
-| `diameter_mm` | wheels only; leave blank otherwise |
+| `diameter_mm` | wheel size for wheels; **max wheel size** for frames, so a frame shows up when filtering for the wheels it takes. Blank for boots and accessories |
 | `durometer` | `86A`, `XFirm` … ; blank where it doesn't apply |
 | `qty` | how many you have |
-| `condition` | `new`, `like-new`, `good`, `worn` |
+| `condition` | `new`, `like-new`, `good`, `worn`, `unknown` |
 | `photos` | filenames from `raw/`, pipe-separated: `a.jpg\|b.jpg` |
 | `notes` | free text, shown on the item page |
 
@@ -87,8 +87,13 @@ It prints suggested groupings ready to paste into the `photos` column. Check
 them against the pictures before trusting them — it is a time heuristic, not
 image recognition.
 
-`data/unsorted.txt` lists the photos not yet assigned to any item. Fifty-one of
-the fifty-seven still need identifying.
+`data/unsorted.txt` lists the photos not yet assigned to any item, already
+grouped into probable items by capture time. 26 of the 57 photos have been
+identified from the branding visible on the gear; the remaining 31 show no
+legible markings and need a human eye.
+
+Quantities and conditions are mostly `unknown` — a photograph shows the model
+and the size, rarely the wear or how many are in the box.
 
 ## Deploying
 

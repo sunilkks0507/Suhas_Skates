@@ -1,57 +1,56 @@
-# Photos in the Drive folder not yet assigned to an item in items.csv.
+# Photos not yet matched to an item in items.csv.
 #
-# Move a filename into the `photos` column of items.csv (pipe-separated) once
-# you know what it shows, then delete the line here. `npm run group` will
-# cluster these by EXIF timestamp — shots taken within 90s are almost always
-# the same item photographed from several angles.
+# 31 of the 57 photos have no legible branding, so they were grouped by
+# capture time instead: shots within 90 seconds of each other are almost
+# certainly the same item from different angles. Each block below is one
+# probable item.
+#
+# To file a block: add a row to items.csv and move the filenames into its
+# `photos` column, pipe-separated. Then delete the block from here.
 
-IMG_20251209_153803.jpg
+# --- probable item: 3 shots, 44s span
 IMG_20251210_184842.jpg
 IMG_20251210_184858.jpg
 IMG_20251210_184926.jpg
-IMG_20251210_191507.jpg
-IMG_20251211_042135.jpg
+
+# --- probable item: 4 shots, 43s span
 IMG_20260608_201955.jpg
 IMG_20260608_202004.jpg
 IMG_20260608_202011.jpg
 IMG_20260608_202038.jpg
-IMG_20260609_010315.jpg
-IMG_20260609_051451.jpg
-IMG_20260609_061605.jpg
-IMG_20260609_062718.jpg
-IMG_20260610_172503.jpg
-IMG_20260610_172712.jpg
-IMG_20260626_155534.jpg
-IMG_20260626_155540.jpg
-IMG_20260626_155547.jpg
-IMG_20260626_155557.jpg
-IMG_20260626_162711.jpg
+
+# --- probable item: 5 shots, 12s span
 IMG_20260626_163619.jpg
 IMG_20260626_163621.jpg
 IMG_20260626_163624.jpg
 IMG_20260626_163626.jpg
 IMG_20260626_163631.jpg
-IMG_20260702_193750.jpg
-IMG_20260702_193804.jpg
-IMG_20260702_194817.jpg
-IMG_20260702_195308.jpg
-IMG_20260702_195336.jpg
-IMG_20260702_195346.jpg
-IMG_20260702_195655.jpg
-IMG_20260702_195710.jpg
-IMG_20260702_195723.jpg
-IMG_20260702_195910.jpg
-IMG_20260703_040028.jpg
-IMG_20260703_040045.jpg
-IMG_20260703_040056.jpg
-IMG_20260703_061840.jpg
-IMG_20260703_062113.jpg
-IMG_20260703_062117.jpg
+
+# --- probable item: 4 shots, 51s span
 IMG_20260703_062303.jpg
 IMG_20260703_062311.jpg
 IMG_20260703_062348.jpg
 IMG_20260703_062354.jpg
-IMG_20260703_064421.jpg
-IMG_20260703_064530.jpg
-IMG_20260703_064558.jpg
-IMG_20260703_064649.jpg
+
+# --- probable item: 3 shots, 28s span
+IMG_20260703_040028.jpg
+IMG_20260703_040045.jpg
+IMG_20260703_040056.jpg
+
+# --- probable item: 2 shots, 14s span
+IMG_20260702_193750.jpg
+IMG_20260702_193804.jpg
+
+# --- probable item: 2 shots, 4s span
+IMG_20260703_062113.jpg
+IMG_20260703_062117.jpg
+
+# --- single shots, each probably its own item
+IMG_20251209_153803.jpg
+IMG_20251210_191507.jpg
+IMG_20251211_042135.jpg
+IMG_20260609_010315.jpg
+IMG_20260610_172503.jpg
+IMG_20260626_162711.jpg
+IMG_20260702_195910.jpg
+IMG_20260703_061840.jpg

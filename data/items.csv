@@ -1,7 +1,15 @@
 id,name,brand,category,diameter_mm,durometer,qty,condition,photos,notes
-matter-f1-110,F1 Track-Road-Marathon,MATTER,wheels,110,86A,8,new,IMG_20250914_063630.jpg|IMG_20250914_063822.jpg,Confirmed from wheel sidewall markings
-matter-f1-100,F1 Track-Road-Marathon,MATTER,wheels,100,86A,4,good,IMG_20260609_052148.jpg,Confirmed from wheel sidewall markings
-mpc-black-magic-90,Black Magic Track-Road-Marathon,MPC,wheels,90,XFirm,8,new,IMG_20260610_172355.jpg|IMG_20250914_063830.jpg,MTECH patented hub
-titan-t,Titan T,Titan,frames,,,1,good,IMG_20260608_200716.jpg,4x110 / 3x125 · 165-195mm mount
-titan-ms,Titan MS,Titan,frames,,,1,good,IMG_20260608_200716.jpg,4x110 / 3x125 · 165-195mm mount
-cougar-mzs7003,Roller Magic MZS7003,Cougar,skates,,,1,new,IMG_20260626_160259.jpg,Boxed complete skate
+matter-f1-110,F1 Track-Road-Marathon,MATTER,wheels,110,86A,1,unknown,IMG_20250914_063630.jpg|IMG_20260610_172712.jpg,Quantity and condition to confirm
+matter-f1-100,F1 Track-Road-Marathon,MATTER,wheels,100,86A,1,unknown,IMG_20260609_052148.jpg,Quantity and condition to confirm
+matter-f1-90,F1 Track-Road-Marathon,MATTER,wheels,90,86A,1,unknown,IMG_20260609_062718.jpg,Quantity and condition to confirm
+matter-cityrun-125,CityRun,MATTER,wheels,125,,1,unknown,IMG_20260702_194817.jpg,185 g per wheel. Durometer not visible in the photo
+mpc-black-magic-90,Black Magic Track-Road-Marathon,MPC,wheels,90,XFirm,1,unknown,IMG_20250914_063822.jpg|IMG_20250914_063830.jpg|IMG_20260610_172355.jpg,MTECH hub. Made in USA
+mpc-black-magic-100,Black Magic Track-Road-Marathon,MPC,wheels,100,XFirm,1,unknown,IMG_20260609_051451.jpg|IMG_20260609_061605.jpg|IMG_20260702_195336.jpg|IMG_20260702_195346.jpg,MTECH hub. Made in USA
+powerslide-dial-al-90,DIAL AL 90,Powerslide,frames,90,,1,unknown,IMG_20260703_064421.jpg|IMG_20260703_064530.jpg|IMG_20260703_064558.jpg|IMG_20260703_064649.jpg,"Aluminium, 9.2 in / 235 mm, max 90 mm wheel, 135-150 mm mount, M7"
+powerslide-dial-al-100,DIAL AL 100,Powerslide,frames,100,,1,unknown,IMG_20260702_195308.jpg|IMG_20260702_195336.jpg|IMG_20260702_195346.jpg,"Aluminium, 10 in / 255 mm, max 100 mm wheel, 150/165 mm mount, M7"
+powerslide-dial-al-110,DIAL AL 110,Powerslide,frames,110,,1,unknown,IMG_20260702_195655.jpg|IMG_20260702_195710.jpg|IMG_20260702_195723.jpg,"Aluminium, 11.4 in / 291 mm, max 110 mm wheel, 165 mm mount, M7"
+powerslide-dial-al-125,DIAL AL 125,Powerslide,frames,125,,1,unknown,IMG_20260702_194817.jpg,"Aluminium, 12.6 in / 321 mm, max 125 mm wheel, 195 mm mount, M7"
+titan-t,Titan T,Titan,frames,110,,1,unknown,IMG_20260608_200716.jpg,4x110 or 3x125. 165-195 mm mount
+titan-ms,Titan MS,Titan,frames,125,,1,unknown,IMG_20260608_200716.jpg,4x110 or 3x125. 165-195 mm mount
+cougar-mzs7003,Roller Magic MZS7003,Cougar,skates,,,1,new,IMG_20260626_155534.jpg|IMG_20260626_155540.jpg|IMG_20260626_155547.jpg|IMG_20260626_155557.jpg|IMG_20260626_160259.jpg,Boxed complete skate. Black/white colourway
+shore-a-durometer,Shore A durometer gauge,Unbranded,accessories,,,1,unknown,IMG_20260609_061605.jpg,0-100 HA measuring tool. Included for completeness - may not be part of the collection
