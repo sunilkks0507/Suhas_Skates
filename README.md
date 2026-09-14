@@ -1,4 +1,4 @@
-# skate-catalogue
+# Suhas Skates
 
 A static catalogue of inline speed skating gear — wheels, frames and complete
 skates — kept as an inventory record. No prices, no checkout, no backend.
@@ -96,7 +96,8 @@ Any static host works. The build output is `dist/`.
 
 - **Cloudflare Pages** — build `npm run build`, output `dist`
 - **Netlify** — same
-- **GitHub Pages** — needs `site` and `base` set in `astro.config.mjs`
+- **GitHub Pages** — set `site: 'https://sunilkks0507.github.io'` and
+  `base: '/Suhas_Skates'` in `astro.config.mjs`
 
 Set `site` in `astro.config.mjs` to the final URL before deploying.
 
