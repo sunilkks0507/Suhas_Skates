@@ -1,10 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-import { url } from '../lib/url';
 ---
-<Base title="Not found">
-  <section class="intro">
-    <h1>404</h1>
-    <p>That item isn't in the catalogue. <a href={url('/')}>Back to all items</a>.</p>
-  </section>
+<Base title="Suhas Skates">
+  <header class="top">
+    <h1 class="wordmark">Suhas Skates</h1>
+  </header>
+  <p class="none">
+    <b>Nothing here</b>
+    <a href={import.meta.env.BASE_URL} style="color:var(--accent)">Back to the photographs</a>
+  </p>
 </Base>

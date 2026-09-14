@@ -1,16 +1,15 @@
 # Suhas Skates
 
-A static catalogue of inline speed skating gear — wheels, frames and complete
-skates — kept as an inventory record. No prices, no checkout, no backend.
+A photographic catalogue of an inline speed skating collection — wheels,
+frames and complete skates. Photographs only: no names, no specifications,
+no prices.
 
-Built with [Astro](https://astro.build). The site ships as plain HTML, CSS and
-about 80 lines of inline JavaScript for filtering and sorting. The whole build
-output is under 100 KB before photos.
+Built with [Astro](https://astro.build). The published site is static HTML,
+one stylesheet and a small lightbox script.
 
 ## How it works
 
 ```
-data/items.csv          one row per ITEM  ← the thing you edit
 raw/                    camera originals (gitignored, ~450 MB)
       │  npm run images
       ▼
@@ -20,134 +19,69 @@ public/photos/          web-ready .webp at 400 / 800 / 1600 px (~10 MB)
 dist/                   the static site
 ```
 
-`data/items.csv` is the single source of truth. Everything on the site —
-the table, the filter chips, the per-item pages — is generated from it.
+**`public/photos/` is the whole catalogue.** The gallery reads that directory
+at build time — drop processed photographs in and they appear, in the order
+they were shot. There is no manifest to keep in step.
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev          # http://localhost:4321
+npm run dev          # http://localhost:4321/Suhas_Skates/
 ```
 
-The catalogue renders immediately with placeholder marks. Photos are optional
-until you run the image pipeline.
+## Adding photographs
 
-## Adding photos
-
-1. Download the Drive folder into `raw/` at the project root.
+1. Put the camera originals in `raw/` at the project root.
 2. `npm run images`
+3. Commit `public/photos/` and push. The site deploys automatically.
 
-That reads every `raw/*.jpg`, corrects orientation from EXIF, strips metadata
-and writes three WebP widths per photo into `public/photos/`. Roughly 450 MB of
-camera originals becomes about 10 MB of web assets. Re-runs skip files already
-converted, so it is safe to stop and restart.
+`npm run images` corrects orientation from EXIF, strips metadata and writes
+three widths per photograph as WebP. Roughly 450 MB of originals becomes about
+10 MB. Re-runs skip what is already converted, so it is safe to interrupt.
 
-No system packages needed — `npm install` brings its own image binaries.
+No system packages are needed — `npm install` brings its own image binaries.
 
-Raw originals stay out of git deliberately — keep them in Drive. Only the
-optimised `public/photos/` files are committed.
+Originals stay out of git deliberately; keep them in Drive. Only the optimised
+files in `public/photos/` are committed.
 
-## Adding items
+## Design notes
 
-Edit `data/items.csv`. One row per **item**, not per photo:
+- **Nothing is cropped.** Real pixel dimensions are read from every file at
+  build time, so the masonry reserves exact space and photographs keep their
+  own proportions. Without those dimensions the layout reflows as images load.
+- **Dark ground.** White urethane and polished aluminium read better against
+  near-black, and the accent is the green of the G13 hubs. The page commits to
+  one palette rather than following the viewer's system theme, the way a
+  gallery commits to a wall colour.
+- **Lightbox.** Click any photograph. Arrow keys and swipe move between them,
+  Escape closes, and neighbours are preloaded so it never stutters.
+- **No captions anywhere**, including `alt` text, which is empty by design:
+  these are decorative plates in a gallery, not informational images.
 
-| column | notes |
-| --- | --- |
-| `id` | lowercase, digits and hyphens. Becomes the URL: `/items/<id>/` |
-| `name` | model name, without the brand |
-| `brand` | MATTER, MPC, Titan, Cougar … |
-| `category` | `wheels`, `frames`, `skates`, `bearings`, `accessories` |
-| `diameter_mm` | wheel size for wheels; **max wheel size** for frames, so a frame shows up when filtering for the wheels it takes. Blank for boots and accessories |
-| `durometer` | `86A`, `XFirm` … ; blank where it doesn't apply |
-| `qty` | how many you have |
-| `condition` | `new`, `like-new`, `good`, `worn`, `unknown` |
-| `photos` | filenames from `raw/`, pipe-separated: `a.jpg\|b.jpg` |
-| `notes` | free text, shown on the item page |
+## The written record
 
-The CSV is validated against a schema at build time. A bad row fails the build
-and names the line:
-
-```
-data/items.csv row 8 is invalid — category: Invalid enum value.
-Expected 'wheels' | 'frames' | 'skates' | 'bearings' | 'accessories', received 'sprockets'
-```
-
-### Which photos belong to which item?
-
-Several shots in the folder are one item from different angles — five frames
-between `163619` and `163631` are the same wheel set, twelve seconds apart.
-To cluster them by capture time:
-
-```bash
-npm run group                  # default: raw/, 90-second gap
-npm run group -- raw 120       # wider gap
-```
-
-It prints suggested groupings ready to paste into the `photos` column. Check
-them against the pictures before trusting them — it is a time heuristic, not
-image recognition.
-
-`data/unsorted.txt` lists the photos not yet assigned to any item, already
-grouped into probable items by capture time. 26 of the 57 photos have been
-identified from the branding visible on the gear; the remaining 31 show no
-legible markings and need a human eye.
-
-Quantities and conditions are mostly `unknown` — a photograph shows the model
-and the size, rarely the wear or how many are in the box.
+`data/items.csv` and `data/unsorted.txt` are kept in the repository but are
+**not rendered**. They hold what could be identified from the photographs —
+MATTER G13, MPC Black Magic, Powerslide DIAL AL frames, Titan, Warrun, Cougar,
+with sizes and durometers — and remain useful if the catalogue ever needs
+specifications again. Earlier versions of this site rendered them; see the git
+history.
 
 ## Deploying
 
 Deployed to **GitHub Pages** at https://sunilkks0507.github.io/Suhas_Skates/
 by `.github/workflows/deploy.yml` on every push to `main`.
 
-One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
+One-time setup: **Settings → Pages → Source: GitHub Actions**. Pages is free on
+public repositories; a private one needs a paid plan. Free-tier limits are 1 GB
+published and 100 GB bandwidth per month — this catalogue is around 10 MB.
 
-GitHub Pages is free on **public** repositories. On a private repository it
-requires a paid plan — until then every deploy fails at `configure-pages`
-with `Resource not accessible by integration`, even though the build itself
-succeeds.
-
-Free-tier limits are 1 GB published site, 100 GB bandwidth per month and 10
-builds per hour. This catalogue is roughly 10 MB with all photos processed,
-so the free tier is not a constraint.
-
-### Internal links and the base path
-
-The site is served from a subdirectory, so `base: '/Suhas_Skates'` is set in
-`astro.config.mjs`. **Astro does not rewrite hardcoded paths.** Every internal
-link and asset URL must go through the helper in `src/lib/url.ts`:
-
-```astro
----
-import { url } from '../lib/url';
----
-<a href={url(`/items/${item.id}/`)}>…</a>
-```
-
-A bare `href="/items/x/"` works in `npm run dev` and 404s in production.
-
-### Moving somewhere else
-
-For Cloudflare Pages, Netlify, or a custom domain: set `site` to the new
-origin and delete `base` from `astro.config.mjs`. The `url()` helper collapses
-to a no-op and nothing else needs touching. Build command `npm run build`,
-output directory `dist`.
-
-## Project layout
-
-```
-data/items.csv            the catalogue
-data/unsorted.txt         photos awaiting identification
-scripts/optimize-images.sh
-scripts/group-by-exif.mjs
-src/lib/items.ts          CSV parsing + schema validation
-src/pages/index.astro     spec table, filters, sorting
-src/pages/items/[id].astro
-src/styles/global.css     light and dark themes
-```
+Moving to Cloudflare Pages, Netlify or a custom domain: set `site` to the new
+origin and delete `base` from `astro.config.mjs`. Build `npm run build`, output
+`dist`.
 
 ## Photo credit
 
-The source photographs were taken by Suhas and shared from his Google Drive
-folder. Published here with his permission.
+The photographs were taken by Suhas and shared from his Google Drive folder.
+Published here with his permission.

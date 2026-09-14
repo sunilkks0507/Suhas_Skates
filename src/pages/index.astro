@@ -1,212 +1,121 @@
 ---
 import Base from '../layouts/Base.astro';
-import { items, facets, firstPhoto, srcset, unidentified } from '../lib/items';
-import { url } from '../lib/url';
-
-// Durometer is colour-coded on the wheel itself, so mirror that in the
-// placeholder marks shown before photos are processed.
-const durColor: Record<string, string> = {
-  '86A': '#2f7f92',
-  '88A': '#c1553a',
-  'XFirm': '#26282c',
-  'Firm': '#6b6f76',
-};
-const colorFor = (d?: string) => (d && durColor[d]) || '#8a8a83';
-
-const cards = [...items].sort(
-  (a, b) => a.category.localeCompare(b.category) || (b.diameter_mm ?? 0) - (a.diameter_mm ?? 0),
-);
-
-const unknownShots = unidentified
-  .map((photo) => srcset(photo))
-  .filter((s): s is NonNullable<typeof s> => s !== null);
-
-// Nothing in public/photos/ yet. Rather than 45 identical placeholder marks,
-// fall back to typographic tiles and say plainly what is missing.
-const anyPhotos = cards.some((item) => firstPhoto(item) !== null) || unknownShots.length > 0;
+import { photos } from '../lib/photos';
 ---
 
 <Base title="Suhas Skates">
-  <section class="intro">
-    <h1>Inline speed gear</h1>
-    <p>
-      Wheels, frames and complete skates. Filter by diameter or durometer to
-      narrow the collection.
-    </p>
-  </section>
+  <header class="top">
+    <h1 class="wordmark">Suhas Skates</h1>
+    <p class="sub">Inline speed</p>
+  </header>
 
-  {!anyPhotos && (
-    <p class="pending">
-      <b>Photographs not added yet.</b>
-      Items below are listed from their specifications. Run
-      <code>npm run images</code> over the camera originals to publish the
-      photographs.
+  {photos.length === 0 ? (
+    <p class="none">
+      <b>No photographs yet</b>
+      Put the originals in <code>raw/</code> and run <code>npm run images</code>
     </p>
+  ) : (
+    <main class="sheet">
+      {photos.map((photo, i) => (
+        <button class="frame" type="button" data-i={i} aria-label={`Open photograph ${i + 1}`}>
+          <img
+            src={photo.src}
+            srcset={photo.srcset}
+            sizes="(max-width: 380px) 100vw, (max-width: 760px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            width={photo.width}
+            height={photo.height}
+            loading={i < 8 ? 'eager' : 'lazy'}
+            decoding="async"
+            alt=""
+          />
+        </button>
+      ))}
+    </main>
   )}
 
-  <div class="filters">
-    <div class="frow">
-      <span class="flabel">Category</span>
-      {facets.category.map((c) => (
-        <button class="chip" type="button" aria-pressed="false" data-facet="category" data-value={c}>{c}</button>
-      ))}
+  {photos.length > 0 && (
+    <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Photograph viewer">
+      <button class="shut bar-btn" id="shut" type="button" aria-label="Close">✕</button>
+      <div class="stage"><img id="stage-img" alt="" /></div>
+      <div class="bar">
+        <button id="prev" type="button" aria-label="Previous">←</button>
+        <span class="count" id="count"></span>
+        <button id="next" type="button" aria-label="Next">→</button>
+      </div>
     </div>
-
-    {facets.diameter.length > 0 && (
-      <div class="frow">
-        <span class="flabel">Diameter</span>
-        {facets.diameter.map((d) => (
-          <button class="chip" type="button" aria-pressed="false" data-facet="diameter" data-value={String(d)}>{d} mm</button>
-        ))}
-      </div>
-    )}
-
-    {facets.durometer.length > 0 && (
-      <div class="frow">
-        <span class="flabel">Durometer</span>
-        {facets.durometer.map((d) => (
-          <button class="chip" type="button" aria-pressed="false" data-facet="durometer" data-value={d}>{d}</button>
-        ))}
-        <button class="chip chip-clear" type="button" id="clear" hidden>Clear filters</button>
-      </div>
-    )}
-  </div>
-
-  <ul class="gallery" id="gallery">
-    {cards.map((item) => {
-      const img = firstPhoto(item);
-      const spec = [
-        item.diameter_mm ? `${item.diameter_mm} mm` : null,
-        item.durometer ?? null,
-      ].filter(Boolean).join(' · ');
-
-      return (
-        <li
-          data-category={item.category}
-          data-diameter={item.diameter_mm ?? ''}
-          data-durometer={item.durometer ?? ''}
-        >
-          <a href={url(`/items/${item.id}/`)}>
-            <span class="shot">
-              {img ? (
-                <img src={img.src} srcset={img.srcset}
-                     sizes="(max-width: 560px) 45vw, (max-width: 900px) 30vw, 240px"
-                     width="800" height="800" loading="lazy" decoding="async"
-                     alt={`${item.brand} ${item.name}`} />
-              ) : item.diameter_mm ? (
-                <span class="ph">
-                  <span class="ph-num">{item.diameter_mm}</span>
-                  <span class="ph-unit">mm</span>
-                  {item.durometer && (
-                    <span class="ph-dur">
-                      <i style={`background:${colorFor(item.durometer)}`}></i>{item.durometer}
-                    </span>
-                  )}
-                </span>
-              ) : (
-                <span class="ph"><span class="ph-word">{item.category}</span></span>
-              )}
-            </span>
-            <span class="label">
-              <span class="name">{item.name}</span>
-              <span class="brand">{item.brand}</span>
-              {spec && <span class="spec">{spec}</span>}
-            </span>
-          </a>
-        </li>
-      );
-    })}
-  </ul>
-
-  <p class="empty" id="empty" hidden>Nothing matches those filters.</p>
-
-  {unidentified.length > 0 && (
-    <section class="unknown">
-      <p class="sub">Not yet identified</p>
-      {unknownShots.length > 0 ? (
-        <ul class="gallery bare">
-          {unknownShots.map((img) => (
-            <li>
-              <span class="shot">
-                <img src={img.src} srcset={img.srcset}
-                     sizes="(max-width: 560px) 45vw, (max-width: 900px) 30vw, 240px"
-                     width="800" height="800" loading="lazy" decoding="async" alt="" />
-              </span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="awaiting">Photographs not yet matched to an item.</p>
-      )}
-    </section>
   )}
 </Base>
 
 <script>
-  const gallery = document.getElementById('gallery');
-  const empty = document.getElementById('empty');
-  const clear = document.getElementById('clear') as HTMLButtonElement | null;
-  if (!gallery || !empty || !clear) throw new Error('catalogue markup missing');
+  const frames = [...document.querySelectorAll<HTMLButtonElement>('.frame')];
+  const viewer = document.getElementById('viewer');
+  const stage = document.getElementById('stage-img') as HTMLImageElement | null;
+  const count = document.getElementById('count');
+  if (frames.length && viewer && stage && count) {
+    // Full-resolution source for each photograph, read off the thumbnails.
+    const shots = frames.map((f) => {
+      const img = f.querySelector('img')!;
+      return { src: img.currentSrc || img.src, srcset: img.srcset };
+    });
 
-  const chips = [...document.querySelectorAll<HTMLButtonElement>('.chip[data-facet]')];
-  const tiles = [...gallery.children] as HTMLElement[];
+    let at = 0;
+    let lastFocus: HTMLElement | null = null;
 
-  /** facet name -> selected values. An empty set means "no constraint". */
-  const active = new Map<string, Set<string>>();
+    const pad = (n: number) => String(n).padStart(2, '0');
 
-  function apply() {
-    let shown = 0;
-    for (const tile of tiles) {
-      const ok = [...active].every(([facet, values]) =>
-        values.size === 0 || values.has(tile.dataset[facet] ?? ''),
-      );
-      tile.hidden = !ok;
-      if (ok) shown++;
-    }
-    empty.hidden = shown > 0;
-    clear.hidden = [...active.values()].every((v) => v.size === 0);
-    writeUrl();
-  }
-
-  function writeUrl() {
-    const params = new URLSearchParams();
-    for (const [facet, values] of active) {
-      if (values.size) params.set(facet, [...values].join(','));
-    }
-    const qs = params.toString();
-    history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
-  }
-
-  function readUrl() {
-    const params = new URLSearchParams(location.search);
-    for (const chip of chips) {
-      const { facet, value } = chip.dataset as { facet: string; value: string };
-      if ((params.get(facet)?.split(',') ?? []).includes(value)) {
-        chip.setAttribute('aria-pressed', 'true');
-        active.get(facet)!.add(value);
+    function show(i: number) {
+      at = (i + shots.length) % shots.length;
+      stage!.srcset = shots[at].srcset;
+      stage!.sizes = '100vw';
+      stage!.src = shots[at].src;
+      count!.textContent = `${pad(at + 1)} / ${pad(shots.length)}`;
+      // Warm the neighbours so arrowing through is instant.
+      for (const j of [at + 1, at - 1]) {
+        const n = (j + shots.length) % shots.length;
+        const pre = new Image();
+        pre.srcset = shots[n].srcset;
+        pre.sizes = '100vw';
+        pre.src = shots[n].src;
       }
     }
-  }
 
-  for (const chip of chips) {
-    const { facet, value } = chip.dataset as { facet: string; value: string };
-    if (!active.has(facet)) active.set(facet, new Set());
-    chip.addEventListener('click', () => {
-      const set = active.get(facet)!;
-      const on = chip.getAttribute('aria-pressed') === 'true';
-      if (on) set.delete(value);
-      else set.add(value);
-      chip.setAttribute('aria-pressed', String(!on));
-      apply();
+    function open(i: number) {
+      lastFocus = document.activeElement as HTMLElement;
+      show(i);
+      viewer!.setAttribute('data-open', '');
+      document.body.style.overflow = 'hidden';
+      (document.getElementById('shut') as HTMLButtonElement).focus();
+    }
+
+    function close() {
+      viewer!.removeAttribute('data-open');
+      document.body.style.overflow = '';
+      lastFocus?.focus();
+    }
+
+    frames.forEach((f, i) => f.addEventListener('click', () => open(i)));
+    document.getElementById('shut')!.addEventListener('click', close);
+    document.getElementById('prev')!.addEventListener('click', () => show(at - 1));
+    document.getElementById('next')!.addEventListener('click', () => show(at + 1));
+
+    // Clicking the backdrop closes; clicking the photograph itself does not.
+    viewer.addEventListener('click', (e) => {
+      if (e.target === viewer || (e.target as HTMLElement).classList.contains('stage')) close();
     });
+
+    document.addEventListener('keydown', (e) => {
+      if (!viewer.hasAttribute('data-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') show(at + 1);
+      else if (e.key === 'ArrowLeft') show(at - 1);
+    });
+
+    // Swipe on touch devices.
+    let x0 = 0;
+    viewer.addEventListener('touchstart', (e) => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+    viewer.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) show(dx < 0 ? at + 1 : at - 1);
+    }, { passive: true });
   }
-
-  clear.addEventListener('click', () => {
-    for (const set of active.values()) set.clear();
-    for (const chip of chips) chip.setAttribute('aria-pressed', 'false');
-    apply();
-  });
-
-  readUrl();
-  apply();
 </script>
