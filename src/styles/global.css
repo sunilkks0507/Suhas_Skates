@@ -295,3 +295,77 @@ footer.foot {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- no-photo state ---------- */
+/* Until public/photos/ is populated the grid has nothing to show, so tiles
+   fall back to the one fact that identifies a piece of speed gear: its size. */
+.pending {
+  border-left: 3px solid var(--flag);
+  background: var(--surface);
+  padding: 13px 18px;
+  margin: 0 0 4px;
+  font-size: .93rem;
+  color: var(--ink-2);
+  max-width: 64ch;
+}
+.pending b {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--flag);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 100%;
+  height: 100%;
+  font-family: var(--mono);
+  color: var(--ink-3);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 7px,
+      var(--hairline-2) 7px 8px
+    );
+}
+.ph-num {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.ph-unit {
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.ph-dur {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 7px;
+  font-size: 10px;
+  letter-spacing: .06em;
+  color: var(--ink-2);
+}
+.ph-dur i { width: 6px; height: 6px; border-radius: 50%; display: block; }
+.ph-word {
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.awaiting {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin: 14px 0 0;
+}

@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import Wheel from '../components/Wheel.astro';
 import { items, facets, firstPhoto, srcset, unidentified } from '../lib/items';
 import { url } from '../lib/url';
 
@@ -21,6 +20,10 @@ const cards = [...items].sort(
 const unknownShots = unidentified
   .map((photo) => srcset(photo))
   .filter((s): s is NonNullable<typeof s> => s !== null);
+
+// Nothing in public/photos/ yet. Rather than 45 identical placeholder marks,
+// fall back to typographic tiles and say plainly what is missing.
+const anyPhotos = cards.some((item) => firstPhoto(item) !== null) || unknownShots.length > 0;
 ---
 
 <Base title="Suhas Skates">
@@ -31,6 +34,15 @@ const unknownShots = unidentified
       narrow the collection.
     </p>
   </section>
+
+  {!anyPhotos && (
+    <p class="pending">
+      <b>Photographs not added yet.</b>
+      Items below are listed from their specifications. Run
+      <code>npm run images</code> over the camera originals to publish the
+      photographs.
+    </p>
+  )}
 
   <div class="filters">
     <div class="frow">
@@ -81,8 +93,18 @@ const unknownShots = unidentified
                      sizes="(max-width: 560px) 45vw, (max-width: 900px) 30vw, 240px"
                      width="800" height="800" loading="lazy" decoding="async"
                      alt={`${item.brand} ${item.name}`} />
+              ) : item.diameter_mm ? (
+                <span class="ph">
+                  <span class="ph-num">{item.diameter_mm}</span>
+                  <span class="ph-unit">mm</span>
+                  {item.durometer && (
+                    <span class="ph-dur">
+                      <i style={`background:${colorFor(item.durometer)}`}></i>{item.durometer}
+                    </span>
+                  )}
+                </span>
               ) : (
-                <Wheel color={colorFor(item.durometer)} size={78} />
+                <span class="ph"><span class="ph-word">{item.category}</span></span>
               )}
             </span>
             <span class="label">
@@ -101,21 +123,21 @@ const unknownShots = unidentified
   {unidentified.length > 0 && (
     <section class="unknown">
       <p class="sub">Not yet identified</p>
-      <ul class="gallery bare">
-        {unknownShots.length > 0
-          ? unknownShots.map((img) => (
-              <li>
-                <span class="shot">
-                  <img src={img.src} srcset={img.srcset}
-                       sizes="(max-width: 560px) 45vw, (max-width: 900px) 30vw, 240px"
-                       width="800" height="800" loading="lazy" decoding="async" alt="" />
-                </span>
-              </li>
-            ))
-          : unidentified.map(() => (
-              <li><span class="shot"><Wheel size={78} /></span></li>
-            ))}
-      </ul>
+      {unknownShots.length > 0 ? (
+        <ul class="gallery bare">
+          {unknownShots.map((img) => (
+            <li>
+              <span class="shot">
+                <img src={img.src} srcset={img.srcset}
+                     sizes="(max-width: 560px) 45vw, (max-width: 900px) 30vw, 240px"
+                     width="800" height="800" loading="lazy" decoding="async" alt="" />
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="awaiting">Photographs not yet matched to an item.</p>
+      )}
     </section>
   )}
 </Base>
