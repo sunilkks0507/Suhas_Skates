@@ -143,5 +143,5 @@ src/styles/global.css     light and dark themes
 
 ## Photo credit
 
-The source photographs were shared from a Google Drive folder owned by
-`13suhasrao@gmail.com`. Confirm permission before publishing the site publicly.
+The source photographs were taken by Suhas and shared from his Google Drive
+folder. Published here with his permission.
