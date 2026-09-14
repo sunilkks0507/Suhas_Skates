@@ -127,8 +127,17 @@ export const facets = {
   condition: [...new Set(items.map((i) => i.condition))].sort(),
 };
 
-export const totals = {
-  items: items.length,
-  units: items.reduce((sum, i) => sum + i.qty, 0),
-  photos: items.reduce((sum, i) => sum + i.photos.length, 0),
-};
+/**
+ * Photos in data/unsorted.txt — shot but not yet matched to an item. They are
+ * shown on the index as bare images, no caption, so nothing in the collection
+ * is invisible just because its branding wasn't legible.
+ */
+function loadUnidentified(): string[] {
+  const text = readFileSync('data/unsorted.txt', 'utf8');
+  return text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => /^IMG_.*\.jpe?g$/i.test(line));
+}
+
+export const unidentified = loadUnidentified();

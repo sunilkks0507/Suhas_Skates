@@ -119,22 +119,6 @@ img { max-width: 100%; }
 }
 .intro p { margin: 0; color: var(--ink-2); max-width: 62ch; }
 
-.intro p.tally {
-  display: flex;
-  gap: 22px;
-  flex-wrap: wrap;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin: 16px 0 0;
-}
-.intro p.tally b {
-  color: var(--ink);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
 
 /* ---------- filter bar ---------- */
 .filters {
@@ -178,84 +162,73 @@ img { max-width: 100%; }
   margin-left: auto;
 }
 
-/* ---------- spec table ---------- */
-.tablewrap { overflow-x: auto; }
-table.spec {
-  width: 100%;
-  min-width: 620px;
-  border-collapse: collapse;
-  font-family: var(--mono);
-  font-size: 12px;
+/* ---------- image gallery ---------- */
+.gallery {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 26px 20px;
 }
-table.spec th {
-  text-align: left;
-  padding: 10px 14px 10px 0;
+.gallery > li { min-width: 0; }
+.gallery a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.shot {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  max-width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery a:hover .shot { border-color: var(--ink-3); }
+
+.label {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  line-height: 1.45;
+}
+.label .name {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.gallery a:hover .label .name { text-decoration: underline; }
+.label .brand {
+  display: block;
   font-size: 9.5px;
-  font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--ink-3);
-  border-bottom: 1px solid var(--rule);
-  white-space: nowrap;
+  margin-top: 2px;
 }
-table.spec th button {
-  all: unset;
-  cursor: pointer;
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-  color: inherit;
-  font: inherit;
-  letter-spacing: inherit;
-}
-table.spec th button:hover { color: var(--ink); }
-table.spec th button .dir { opacity: 0; }
-table.spec th[aria-sort] button { color: var(--ink); }
-table.spec th[aria-sort] button .dir { opacity: 1; }
-
-table.spec td {
-  padding: 9px 14px 9px 0;
-  border-bottom: 1px solid var(--hairline-2);
+.label .spec {
+  display: block;
+  font-size: 10.5px;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  vertical-align: middle;
-}
-table.spec tbody tr:hover td { background: var(--hairline-2); }
-table.spec td.item { white-space: normal; padding-left: 0; }
-
-.cellrow { display: flex; align-items: center; gap: 11px; }
-.cellrow a { color: var(--ink); text-decoration: none; font-weight: 500; }
-.cellrow a:hover { text-decoration: underline; }
-.cellrow .brand {
-  display: block;
-  font-size: 10px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  font-weight: 400;
-}
-.thumb {
-  width: 36px;
-  height: 36px;
-  flex: none;
-  object-fit: cover;
-  background: var(--hairline-2);
-  border-radius: 2px;
+  margin-top: 3px;
 }
 
-.dur { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; }
-
-.tag {
-  font-size: 9.5px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: 2px 6px;
-  border: 1px solid var(--hairline);
-  border-radius: 2px;
-  color: var(--ink-2);
-}
-.tag.new { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-bg); }
+/* Unidentified shots carry no caption by design. */
+.unknown { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--hairline); }
+.gallery.bare { margin-top: 18px; }
+.gallery.bare .shot { cursor: default; }
 
 .empty {
   padding: 40px 0;

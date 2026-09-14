@@ -19,7 +19,6 @@ const props: Array<[string, string]> = [
   ['Category', item.category],
   ...(item.diameter_mm ? ([['Diameter', `${item.diameter_mm} mm`]] as Array<[string, string]>) : []),
   ...(item.durometer ? ([['Durometer', item.durometer]] as Array<[string, string]>) : []),
-  ['Quantity', String(item.qty)],
   ['Condition', item.condition],
 ];
 ---
